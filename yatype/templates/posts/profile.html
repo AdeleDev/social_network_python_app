@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>User profile {{ author }}</title>
+{% endblock %}
+
+{% block content %}
+  <div class="mb-5">
+    <h1 style="color:rgb(57,17,161); text-align:center">All posts of user {{ author }} </h1>
+    <h3 style="color:rgb(57,17,161); text-align:center">Amount of posts: {{ posts_count }} </h3>
+
+    {% if author|safe != user.username|safe %}
+
+      {% if following %}
+        <a
+                class="btn btn-lg btn-light" style="background-color:#c4b1f3"
+                href="{% url 'posts:profile_unfollow' author.username %}" role="button"
+        >
+          Unfollow
+        </a>
+      {% else %}
+        <a
+                class="btn btn-lg btn-primary" style="background-color:#3911a1"
+                href="{% url 'posts:profile_follow' author.username %}" role="button"
+        >
+          Follow
+        </a>
+      {% endif %}
+    {% endif %}
+    {% for post in page_obj %}
+      {% load thumbnail %}
+      <article>
+        <ul style="color:rgb(57,17,161);list-style-type: none">
+          <li>
+            <span style="font-weight: 500">Date created: </span>{{ post.pub_date|date:"d E Y" }}
+          </li>
+        </ul>
+        {% thumbnail post.image "960x480" crop="center" upscale=True as im %}
+          <img class="card-img my-2" src="{{ im.url }}">
+        {% endthumbnail %}
+        <p>{{ post.text }}</p>
+        <a style="color:rgb(57,17,161)" href="{% url 'posts:post_detail' post.pk %}">detailed information</a>
+      </article>
+      {% if post.group %}
+        <a style="color:rgb(57,17,161)" href="{% url 'posts:group_list' post.group.slug %}">all group's posts</a>
+      {% endif %}
+      {% if not forloop.last %}
+        <hr>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+  {% include 'includes/paginator.html' %}
+{% endblock %}

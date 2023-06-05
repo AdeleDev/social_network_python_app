@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title> Posts of group {group.title}</title>
+{% endblock %}
+
+{% block content %}
+  <h1 style="color:rgb(57,17,161); text-align:center">Group {{ group.title }}</h1>
+  <p>{{ group.description }}</p>
+  {% for post in page_obj %}
+    {% load thumbnail %}
+    <article>
+      <ul style="color:rgb(57,17,161);list-style-type: none">
+        <li>
+          <span style="font-weight: 500">Author: </span> {{ post.author }}
+        </li>
+        <li>
+          <span style="font-weight: 500"> Date created: </span>{{ post.pub_date|date:"d E Y" }}
+        </li>
+      </ul>
+      {% thumbnail post.image "960x480" crop="center" upscale=True as im %}
+        <img class="card-img my-2" src="{{ im.url }}">
+      {% endthumbnail %}
+      <p> {{ post.text }}</p>
+      {% if not forloop.last %}
+        <hr>
+      {% endif %}
+    </article>
+  {% endfor %}
+  <hr>
+
+  {% include 'includes/paginator.html' %}
+{% endblock %}

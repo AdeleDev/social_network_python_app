@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Technologies</title>
+{% endblock %}
+{% block content %}
+  <h1 style="color:rgb(57,17,161); text-align:center;">Used technologies</h1>
+
+  <div class="row" style="color:rgb(57,17,161); text-align:center; align-items: center">
+    <aside class="col-12 16">
+      <table border="2" , style=" margin-left: auto;  margin-right: auto;">
+        <tr style="border-collapse: separate;  text-align:center">
+          <th style="border-collapse: separate">Lib</th>
+          <th></th>
+          <th>Ver.</th>
+        </tr>
+        <tr style=" border: 1px solid black;  text-align:center">
+          <td>Python:</td>
+          <th></th>
+          <td>3.7</td>
+        </tr>
+        <tr style=" border: 1px solid black;  text-align:center">
+          <td>Django:</td>
+          <th></th>
+          <td>3.2.1</td>
+        </tr>
+        <tr style=" border: 1px solid black;  text-align:center">
+          <td>Pytest:</td>
+          <th></th>
+          <td>6.2.4</td>
+        </tr>
+        <tr style=" border: 1px solid black;  text-align:center">
+          <td>Pytest-django:</td>
+          <th></th>
+          <td>4.4.0</td>
+        </tr>
+        <tr style=" border: 1px solid black;  text-align:center">
+          <td>Requests:</td>
+          <th></th>
+          <td>2.26.0</td>
+        </tr>
+      </table>
+    </aside>
+  </div>
+{% endblock %}
+
+Django==2.2.16
+mixer==7.1.2
+Pillow==8.3.1
+pytest==6.2.4
+pytest-django==4.4.0
+pytest-pythonpath==0.7.3
+requests==2.26.0
+six==1.16.0
+sorl-thumbnail==12.7.0
+Faker==12.0.1

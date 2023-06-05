@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Last updates</title>
+{% endblock %}
+
+{% block content %}
+  {% include 'posts/includes/switcher.html' %}
+  <h1 style="color:rgb(57,17,161); text-align:center">{{ text }}</h1>
+  {% for post in page_obj %}
+    {% load thumbnail %}
+    <article>
+      <ul style="color:rgb(57,17,161);list-style-type: none">
+        <li>
+          <span style="font-weight: 500">Author: </span> {{ post.author }}
+        </li>
+        <li>
+          <span style="font-weight: 500">Date created: </span>{{ post.pub_date|date:"d E Y" }}
+        </li>
+      </ul>
+      <p>{{ post.text }}</p>
+      {% thumbnail post.image "960x480" crop="center" upscale=True as im %}
+        <img class="card-img my-2" src="{{ im.url }}" alt="">
+      {% endthumbnail %}
+      <ul style="list-style-type: none">
+        <li><a style="color:rgb(57,17,161)" href="{% url 'posts:profile' post.author %}">all author's posts</a></li>
+        <li><a style="color:rgb(57,17,161)" href="{% url 'posts:post_detail' post.pk %}">detailed information</a></li>
+        {% if post.group %}
+          <li><a style="color:rgb(57,17,161)" href="{% url 'posts:group_list' post.group.slug %}">all group's posts</a>
+          </li>
+        {% endif %}
+      </ul>
+    </article>
+    {% if not forloop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+
+  {% include 'includes/paginator.html' %}
+{% endblock %}
